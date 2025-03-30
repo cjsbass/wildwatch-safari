@@ -219,64 +219,63 @@ export function LodgeSettings() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold">Your Lodges</h2>
-          <p className="text-muted-foreground">Manage your safari lodges and their details</p>
-        </div>
-        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline" className="border-safari-leaf text-safari-leaf hover:bg-safari-leaf/10 gap-2">
-              <Plus className="h-4 w-4" />
-              <span>Add Lodge</span>
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add New Lodge</DialogTitle>
-              <DialogDescription>Enter the details for your new safari lodge.</DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Lodge Name</Label>
-                <Input
-                  id="name"
-                  value={newLodge.name}
-                  onChange={(e) => setNewLodge({ ...newLodge, name: e.target.value })}
-                  placeholder="e.g. Savanna Sunrise Lodge"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="location">Location</Label>
-                <Input
-                  id="location"
-                  value={newLodge.location}
-                  onChange={(e) => setNewLodge({ ...newLodge, location: e.target.value })}
-                  placeholder="e.g. Serengeti National Park, Tanzania"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={newLodge.description}
-                  onChange={(e) => setNewLodge({ ...newLodge, description: e.target.value })}
-                  placeholder="Describe your lodge, its features, and surroundings..."
-                  rows={3}
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={handleAddLodge} disabled={!newLodge.name || !newLodge.location}>
-                Add Lodge
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+      <div>
+        <h2 className="text-2xl font-bold">Your Lodges</h2>
+        <p className="text-muted-foreground mb-4">Manage your safari lodges and their details</p>
       </div>
+
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="border-safari-leaf text-safari-leaf hover:bg-safari-leaf/10 gap-2 mb-4">
+            <Plus className="h-4 w-4" />
+            <span>Add Lodge</span>
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Lodge</DialogTitle>
+            <DialogDescription>Enter the details for your new safari lodge.</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Lodge Name</Label>
+              <Input
+                id="name"
+                value={newLodge.name}
+                onChange={(e) => setNewLodge({ ...newLodge, name: e.target.value })}
+                placeholder="e.g. Savanna Sunrise Lodge"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="location">Location</Label>
+              <Input
+                id="location"
+                value={newLodge.location}
+                onChange={(e) => setNewLodge({ ...newLodge, location: e.target.value })}
+                placeholder="e.g. Serengeti National Park, Tanzania"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={newLodge.description}
+                onChange={(e) => setNewLodge({ ...newLodge, description: e.target.value })}
+                placeholder="Describe your lodge, its features, and surroundings..."
+                rows={3}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleAddLodge} disabled={!newLodge.name || !newLodge.location}>
+              Add Lodge
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {lodges.length === 0 ? (
         <div className="rounded-md border border-dashed p-8 text-center">
