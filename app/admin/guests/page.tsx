@@ -102,8 +102,7 @@ export default function GuestsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Guests</h1>
-          <p className="text-muted-foreground">Manage guest profiles and notification preferences</p>
+          {/* Removed the Guests heading and subtitle */}
         </div>
         <Dialog open={newGuestOpen} onOpenChange={setNewGuestOpen}>
           <DialogTrigger asChild>
