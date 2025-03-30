@@ -220,7 +220,6 @@ export function LodgeSettings() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold">Your Lodges</h2>
         <p className="text-muted-foreground mb-4">Manage your safari lodges and their details</p>
       </div>
 
