@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 30 10% 15%;
+
+    --card: 40 33% 98%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 33% 98%;
+    --popover-foreground: 30 10% 15%;
+
+    --primary: 105 78% 27%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 35 70% 62%;
+    --secondary-foreground: 30 10% 15%;
+
+    --muted: 40 20% 92%;
+    --muted-foreground: 30 10% 40%;
+
+    --accent: 35 70% 62%;
+    --accent-foreground: 30 10% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 30 10% 85%;
+    --input: 30 10% 85%;
+    --ring: 105 78% 27%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 30 10% 10%;
+    --foreground: 40 33% 98%;
+
+    --card: 30 10% 12%;
+    --card-foreground: 40 33% 98%;
+
+    --popover: 30 10% 12%;
+    --popover-foreground: 40 33% 98%;
+
+    --primary: 105 78% 27%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 35 70% 40%;
+    --secondary-foreground: 40 33% 98%;
+
+    --muted: 30 10% 20%;
+    --muted-foreground: 40 33% 70%;
+
+    --accent: 35 70% 40%;
+    --accent-foreground: 40 33% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 30 10% 25%;
+    --input: 30 10% 25%;
+    --ring: 105 78% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #f8f7f4;
+  }
+}
+
+.safari-pattern {
+  background-color: #f8f7f4;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a76a' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Apply consistent background to all sections */
+.bg-background {
+  background-color: #f8f7f4 !important;
+}
+
