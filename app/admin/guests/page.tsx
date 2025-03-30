@@ -205,7 +205,15 @@ export default function GuestsPage() {
                   <TableCell className="font-medium">{guest.name}</TableCell>
                   <TableCell>{guest.phone}</TableCell>
                   <TableCell>
-                    {new Date(guest.checkIn).toLocaleDateString()} - {new Date(guest.checkOut).toLocaleDateString()}
+                    {new Date(guest.checkIn).toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit'
+                    })} - {new Date(guest.checkOut).toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit'
+                    })}
                   </TableCell>
                   <TableCell>
                     {guest.status === "onboarded" ? (
