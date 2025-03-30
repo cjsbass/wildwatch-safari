@@ -232,22 +232,18 @@ export default function CamerasPage() {
   if (lodge) {
     return (
       <div className="py-6">
-        <div className="flex items-center gap-2 rounded-md border px-3 py-1.5 mb-8">
+        <div className="flex items-center gap-2 rounded-md border px-3 py-1.5 mb-4">
           <Camera className="h-4 w-4" />
           {lodge.name}
         </div>
 
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold">{lodge.name} Cameras</h2>
-          <p className="text-muted-foreground mt-2">
-            Manage cameras for {lodge.name} at {lodge.location}
-          </p>
+        <div className="mb-4">
+          {/* Removed the lodge name heading */}
         </div>
 
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-4 flex items-center justify-between">
           <div>
-            <h3 className="text-2xl font-bold">Wildlife Cameras</h3>
-            <p className="text-muted-foreground">Manage your wildlife detection cameras across all lodges</p>
+            {/* Removed the heading and subtitle */}
           </div>
           <Dialog
             open={isAddDialogOpen}
@@ -834,11 +830,10 @@ export default function CamerasPage() {
 
   // If no lodge is selected, show all cameras
   return (
-    <div className="py-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="py-4">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-2xl font-bold">All Wildlife Cameras</h3>
-          <p className="text-muted-foreground">Manage your wildlife detection cameras across all lodges</p>
+          {/* Removed the heading and subtitle */}
         </div>
         <Dialog
           open={isAddDialogOpen}

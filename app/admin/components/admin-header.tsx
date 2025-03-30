@@ -14,10 +14,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function AdminHeader() {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between bg-background px-4 md:px-6">
+    <header className="sticky top-0 z-30 flex h-12 items-center justify-between bg-background px-4 md:px-6">
       <div className="md:hidden w-8"></div>
       <div className="hidden md:block">
-        <h1 className="text-lg font-semibold">Wildlife Notification System</h1>
+        {/* Removed the Wildlife Notification System heading */}
       </div>
       <div className="flex items-center gap-2">
         <Button variant="outline" size="icon" className="rounded-full">
