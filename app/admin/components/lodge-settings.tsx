@@ -299,7 +299,7 @@ export function LodgeSettings() {
           <div className="grid gap-6 md:grid-cols-2">
             {lodges.map((lodge) => (
               <Card key={lodge.id} className="overflow-hidden border">
-                <div className="p-6">
+                <div className="p-6 flex flex-col h-full">
                   <div className="mb-4 flex items-start justify-between">
                     <h3 className="text-xl font-semibold">{lodge.name}</h3>
                     <div className="flex gap-2">
@@ -330,9 +330,9 @@ export function LodgeSettings() {
                     <span>{lodge.location}</span>
                   </div>
 
-                  <p className="mb-6 text-sm text-muted-foreground">{lodge.description}</p>
+                  <p className="mb-6 text-sm text-muted-foreground flex-grow">{lodge.description}</p>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mt-auto">
                     <div className="rounded-md bg-muted px-3 py-1 text-sm">
                       {lodge.cameraCount} {lodge.cameraCount === 1 ? "Camera" : "Cameras"}
                     </div>
