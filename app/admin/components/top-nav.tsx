@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Camera, Bell, User } from "lucide-react"
+import { Home, Camera, Bell, User, Users } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
@@ -21,6 +21,11 @@ const navItems = [
     title: "Notifications",
     href: "/admin/settings/notifications",
     icon: Bell,
+  },
+  {
+    title: "Users",
+    href: "/admin/users",
+    icon: Users,
   },
   {
     title: "Account",
@@ -60,6 +65,8 @@ function getActiveTab(pathname: string): string {
     return '/admin/settings/cameras'
   } else if (pathname.includes('/notifications')) {
     return '/admin/settings/notifications'
+  } else if (pathname.includes('/users')) {
+    return '/admin/users'
   } else if (pathname.includes('/account')) {
     return '/admin/settings/account'
   } else {
