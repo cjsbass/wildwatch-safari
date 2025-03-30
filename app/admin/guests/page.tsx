@@ -100,64 +100,62 @@ export default function GuestsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          {/* Removed the Guests heading and subtitle */}
-        </div>
-        <Dialog open={newGuestOpen} onOpenChange={setNewGuestOpen}>
-          <DialogTrigger asChild>
-            <Button className="gap-2">
-              <Plus className="h-4 w-4" />
-              Add Guest
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add New Guest</DialogTitle>
-              <DialogDescription>Create a new guest profile to send wildlife notifications</DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleAddGuest}>
-              <div className="grid gap-4 py-4">
+      <Dialog open={newGuestOpen} onOpenChange={setNewGuestOpen}>
+        <DialogTrigger asChild>
+          <Button 
+            variant="outline" 
+            className="border-safari-leaf text-safari-leaf hover:bg-safari-leaf/10 gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Add Guest
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Guest</DialogTitle>
+            <DialogDescription>Create a new guest profile to send wildlife notifications</DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleAddGuest}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input id="name" placeholder="John Doe" required />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="phone">WhatsApp Number</Label>
+                <Input id="phone" placeholder="+1 (555) 123-4567" required />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" placeholder="John Doe" required />
+                  <Label htmlFor="checkIn">Check-in Date</Label>
+                  <Input id="checkIn" type="date" required />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="phone">WhatsApp Number</Label>
-                  <Input id="phone" placeholder="+1 (555) 123-4567" required />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="checkIn">Check-in Date</Label>
-                    <Input id="checkIn" type="date" required />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="checkOut">Check-out Date</Label>
-                    <Input id="checkOut" type="date" required />
-                  </div>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="room">Room/Lodge</Label>
-                  <Select>
-                    <SelectTrigger id="room">
-                      <SelectValue placeholder="Select room" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="elephant-suite">Elephant Suite</SelectItem>
-                      <SelectItem value="lion-lodge">Lion Lodge</SelectItem>
-                      <SelectItem value="giraffe-view">Giraffe View</SelectItem>
-                      <SelectItem value="rhino-retreat">Rhino Retreat</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="checkOut">Check-out Date</Label>
+                  <Input id="checkOut" type="date" required />
                 </div>
               </div>
-              <DialogFooter>
-                <Button type="submit">Add Guest</Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
-      </div>
+              <div className="grid gap-2">
+                <Label htmlFor="room">Room/Lodge</Label>
+                <Select>
+                  <SelectTrigger id="room">
+                    <SelectValue placeholder="Select room" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="elephant-suite">Elephant Suite</SelectItem>
+                    <SelectItem value="lion-lodge">Lion Lodge</SelectItem>
+                    <SelectItem value="giraffe-view">Giraffe View</SelectItem>
+                    <SelectItem value="rhino-retreat">Rhino Retreat</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">Add Guest</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="flex items-center gap-2">
         <div className="relative flex-1">
