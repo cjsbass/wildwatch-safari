@@ -225,7 +225,7 @@ export function LodgeSettings() {
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="border-safari-leaf text-safari-leaf hover:bg-safari-leaf/10 gap-2 mb-4">
+          <Button variant="outline" className="border-safari-leaf text-safari-leaf hover:bg-safari-leaf/10 gap-2 mb-4 mt-8">
             <Plus className="h-4 w-4" />
             <span>Add Lodge</span>
           </Button>
