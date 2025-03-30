@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation"
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const isLoginPage = pathname === "/admin/login"
-  const isSettingsPage = pathname === "/admin/settings" || pathname.startsWith("/admin/settings/")
+  const isSettingsPage = pathname === "/admin/settings" || pathname.startsWith("/admin/settings/") || pathname === "/admin/users"
 
   return (
     <div className="flex min-h-screen flex-col md:flex-row" style={{ backgroundColor: "#f8f7f4" }}>

@@ -15,6 +15,36 @@ A comprehensive notification system for safari lodges that detects and notifies 
 - **Wildlife Notifications**: Automated alerts when animals are detected at watering holes and other locations
 - **Guest Management**: Register guests and customize their notification preferences
 - **Analytics Dashboard**: View wildlife activity trends and camera performance metrics
+- **Live Camera Viewing**: Real-time monitoring with multi-camera grid view and enlargement options
+- **Footage History**: Timeline-based browsing of wildlife sightings with filtering and sharing capabilities
+
+## Camera System
+
+Our comprehensive camera management system includes:
+
+### Live View
+- Multi-camera grid view with real-time feeds
+- Camera selection with lodge filtering
+- Enlarge individual cameras for detailed viewing
+- Camera status indicators (online/offline)
+- Quick access to camera details and locations
+
+### Footage History
+- Timeline navigation showing wildlife activity patterns
+- Color-coded animal type indicators
+- Advanced filtering by animal, camera, date range, and time of day
+- Detailed metadata for each wildlife sighting
+- Video playback with timeline scrubber
+- Export and sharing functionality for wildlife clips
+- Related footage suggestions
+- Tagging and notes system for organization
+
+### Camera Management
+- Add and configure cameras across multiple lodges
+- Comprehensive camera settings (resolution, frame rate, etc.)
+- Network configuration options
+- AI detection sensitivity controls
+- Health monitoring with battery and signal status
 
 ## Setup
 
@@ -43,6 +73,8 @@ npm start
 - Unified color scheme with safari-themed colors
 - Tabbed navigation for intuitive organization
 - Streamlined form inputs and controls
+- Interactive filters with visual feedback
+- Color-coded animal identification system
 
 ## Technologies Used
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BarChart3, Users, MessageSquare, Settings, LogOut, Menu } from "lucide-react"
+import { BarChart3, Users, MessageSquare, Settings, LogOut, Menu, Camera } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -26,6 +26,11 @@ const navItems = [
     icon: MessageSquare,
   },
   {
+    title: "Cameras",
+    href: "/admin/cameras",
+    icon: Camera,
+  },
+  {
     title: "Settings",
     href: "/admin/settings",
     icon: Settings,
@@ -39,7 +44,8 @@ export function AdminSidebar() {
   // Helper function to check if a path is active, including subpaths
   const isPathActive = (path: string) => {
     if (path === "/admin/dashboard" && pathname === "/admin") return true;
-    if (path === "/admin/settings" && pathname.startsWith("/admin/settings")) return true;
+    if (path === "/admin/settings" && (pathname.startsWith("/admin/settings") || pathname === "/admin/users")) return true;
+    if (path === "/admin/cameras" && pathname.startsWith("/admin/cameras")) return true;
     return pathname === path;
   }
 

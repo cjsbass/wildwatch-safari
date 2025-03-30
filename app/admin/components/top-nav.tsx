@@ -13,18 +13,13 @@ const navItems = [
     icon: Home,
   },
   {
-    title: "Cameras",
-    href: "/admin/settings/cameras",
-    icon: Camera,
-  },
-  {
     title: "Notifications",
     href: "/admin/settings/notifications",
     icon: Bell,
   },
   {
     title: "Users",
-    href: "/admin/users",
+    href: "/admin/settings/users",
     icon: Users,
   },
   {
@@ -61,12 +56,10 @@ export function TopNav() {
 
 // Helper function to determine which tab should be active based on the current pathname
 function getActiveTab(pathname: string): string {
-  if (pathname.includes('/cameras')) {
-    return '/admin/settings/cameras'
-  } else if (pathname.includes('/notifications')) {
+  if (pathname.includes('/notifications')) {
     return '/admin/settings/notifications'
   } else if (pathname.includes('/users')) {
-    return '/admin/users'
+    return '/admin/settings/users'
   } else if (pathname.includes('/account')) {
     return '/admin/settings/account'
   } else {

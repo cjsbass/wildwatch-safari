@@ -1,16 +1,18 @@
 "use client"
 
-import { UserSettings } from "../components/user-settings"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
-export default function UsersPage() {
+export default function UsersRedirectPage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.replace('/admin/settings/users')
+  }, [router])
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Users</h1>
-        <p className="text-muted-foreground">Manage user accounts and permissions</p>
-      </div>
-
-      <UserSettings />
+    <div className="flex items-center justify-center min-h-[50vh]">
+      <p className="text-muted-foreground">Redirecting to User Management...</p>
     </div>
   )
 } 
