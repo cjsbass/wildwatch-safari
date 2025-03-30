@@ -3,7 +3,6 @@
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { Logo } from "@/components/logo"
 import { motion } from "framer-motion"
 
@@ -28,7 +27,6 @@ export default function GuestWelcomePage() {
     <div className="min-h-screen safari-pattern">
       <header className="container flex h-16 items-center justify-between py-4">
         <Logo />
-        <ThemeToggle />
       </header>
 
       <main className="container flex flex-col items-center justify-center py-12">

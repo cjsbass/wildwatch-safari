@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { Logo } from "@/components/logo"
 import { CheckCircle, Send } from "lucide-react"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -74,7 +73,6 @@ export default function GuestDashboardPage() {
     <div className="min-h-screen safari-pattern">
       <header className="container flex h-16 items-center justify-between py-4">
         <Logo />
-        <ThemeToggle />
       </header>
 
       <main className="container py-6">

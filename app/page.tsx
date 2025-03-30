@@ -54,14 +54,36 @@ export default function LandingPage() {
       }
     }
   }, [])
+
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <Logo />
-          <div className="flex items-center gap-4">
-            <nav className="hidden gap-6 md:flex">
+      <header className="sticky top-0 z-50 w-full border-b bg-background">
+        <div className="container flex h-16 items-center">
+          <div className="flex w-full justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="relative h-10 w-10 overflow-hidden rounded-full bg-primary">
+                <div className="absolute inset-0 flex items-center justify-center text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6"
+                  >
+                    <path d="M8 22h8"></path>
+                    <path d="M12 11v11"></path>
+                    <path d="M7 10a5 5 0 0 1 5-5c2.76 0 5 2.24 5 5a5 5 0 0 1-5 5"></path>
+                    <path d="M20 18a8 8 0 0 0-16 0"></path>
+                  </svg>
+                </div>
+              </div>
+              <span className="text-xl font-bold">WildWatch</span>
+            </Link>
+            <nav className="hidden md:flex md:items-center md:gap-6">
               <button
                 onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
                 className="text-sm font-medium transition-colors hover:text-primary"
@@ -69,16 +91,16 @@ export default function LandingPage() {
                 Features
               </button>
               <button
+                onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                How It Works
+              </button>
+              <button
                 onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
                 Pricing
-              </button>
-              <button
-                onClick={() => document.getElementById("testimonials")?.scrollIntoView({ behavior: "smooth" })}
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Testimonials
               </button>
               <button
                 onClick={() => document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" })}
@@ -88,7 +110,6 @@ export default function LandingPage() {
               </button>
             </nav>
             <div className="flex items-center gap-4">
-              <ThemeToggle />
               <Link href="/admin/login">
                 <Button variant="outline">Sign In</Button>
               </Link>
