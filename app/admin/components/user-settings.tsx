@@ -381,13 +381,13 @@ export function UserSettings() {
             <span>Add User</span>
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Add New User</DialogTitle>
             <DialogDescription>Create a new user account and set their permissions.</DialogDescription>
           </DialogHeader>
           <Tabs defaultValue="details" className="mt-4">
-            <TabsList className="grid grid-cols-2 mb-4 bg-muted/50 p-1">
+            <TabsList className="grid grid-cols-2 mb-4 bg-muted/50 p-1 sticky top-0 z-10">
               <TabsTrigger value="details" className="data-[state=active]:bg-background">
                 User Details
               </TabsTrigger>
@@ -395,215 +395,217 @@ export function UserSettings() {
                 Permissions
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="details" className="space-y-4">
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    value={newUser.name}
-                    onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-                    placeholder="e.g. John Smith"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={newUser.email}
-                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                    placeholder="e.g. john.smith@safari.com"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="role">Role</Label>
-                  <Select
-                    value={newUser.role}
-                    onValueChange={(value) => handleRoleChange(value, true)}
-                  >
-                    <SelectTrigger id="role">
-                      <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {roles.map((role) => (
-                        <SelectItem key={role.id} value={role.id}>
-                          {role.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {roles.find(r => r.id === newUser.role)?.description}
-                  </p>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="status">Status</Label>
-                  <Select
-                    value={newUser.status}
-                    onValueChange={(value) => setNewUser({ ...newUser, status: value })}
-                  >
-                    <SelectTrigger id="status">
-                      <SelectValue placeholder="Select status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="inactive">Inactive</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </TabsContent>
-            <TabsContent value="permissions" className="space-y-4">
-              <div className="rounded-md border p-4 space-y-4">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium">Manage Users</h4>
-                    <p className="text-sm text-muted-foreground">Add, edit and remove user accounts</p>
-                  </div>
-                  <Switch
-                    checked={newUser.permissions?.manageUsers}
-                    onCheckedChange={(checked) =>
-                      setNewUser(prev => ({
-                        ...prev,
-                        permissions: { ...prev.permissions, manageUsers: checked }
-                      }))
-                    }
-                  />
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium">Manage Lodges</h4>
-                    <p className="text-sm text-muted-foreground">Add, edit and remove lodge information</p>
-                  </div>
-                  <Switch
-                    checked={newUser.permissions?.manageLodges}
-                    onCheckedChange={(checked) =>
-                      setNewUser(prev => ({
-                        ...prev,
-                        permissions: { ...prev.permissions, manageLodges: checked }
-                      }))
-                    }
-                  />
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium">Manage Cameras</h4>
-                    <p className="text-sm text-muted-foreground">Configure and monitor wildlife cameras</p>
-                  </div>
-                  <Switch
-                    checked={newUser.permissions?.manageCameras}
-                    onCheckedChange={(checked) =>
-                      setNewUser(prev => ({
-                        ...prev,
-                        permissions: { ...prev.permissions, manageCameras: checked }
-                      }))
-                    }
-                  />
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium">Manage Guests</h4>
-                    <p className="text-sm text-muted-foreground">Add and manage guest information</p>
-                  </div>
-                  <Switch
-                    checked={newUser.permissions?.manageGuests}
-                    onCheckedChange={(checked) =>
-                      setNewUser(prev => ({
-                        ...prev,
-                        permissions: { ...prev.permissions, manageGuests: checked }
-                      }))
-                    }
-                  />
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium">Send Notifications</h4>
-                    <p className="text-sm text-muted-foreground">Send wildlife notifications to guests</p>
-                  </div>
-                  <Switch
-                    checked={newUser.permissions?.sendNotifications}
-                    onCheckedChange={(checked) =>
-                      setNewUser(prev => ({
-                        ...prev,
-                        permissions: { ...prev.permissions, sendNotifications: checked }
-                      }))
-                    }
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h4 className="font-medium">Receive Notifications</h4>
-                    <p className="text-sm text-muted-foreground">Get wildlife sighting notifications like guests</p>
-                  </div>
-                  <Switch
-                    checked={newUser.permissions?.receiveNotifications}
-                    onCheckedChange={(checked) =>
-                      setNewUser(prev => ({
-                        ...prev,
-                        permissions: { ...prev.permissions, receiveNotifications: checked }
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-              
-              {/* Add wildlife notification preferences */}
-              {newUser.permissions?.receiveNotifications && (
-                <div className="rounded-md border p-4 space-y-4">
-                  <div>
-                    <h4 className="font-medium">Notification Preferences</h4>
-                    <p className="text-sm text-muted-foreground">Select which wildlife sightings to be notified about</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 mt-3">
-                    {wildlifeOptions.map((animal) => (
-                      <div key={animal} className="flex items-center space-x-2">
-                        <Switch
-                          id={`animal-${animal}`}
-                          checked={newUser.notificationPreferences.includes(animal)}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              setNewUser(prev => ({
-                                ...prev,
-                                notificationPreferences: [...prev.notificationPreferences, animal]
-                              }));
-                            } else {
-                              setNewUser(prev => ({
-                                ...prev,
-                                notificationPreferences: prev.notificationPreferences.filter(a => a !== animal)
-                              }));
-                            }
-                          }}
-                        />
-                        <Label htmlFor={`animal-${animal}`}>{animal}</Label>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <Separator />
-                  
+            <div className="overflow-y-auto">
+              <TabsContent value="details" className="space-y-4">
+                <div className="grid gap-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="phone">WhatsApp/Phone Number</Label>
+                    <Label htmlFor="name">Full Name</Label>
                     <Input
-                      id="phone"
-                      type="tel"
-                      value={newUser.phone}
-                      onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
-                      placeholder="e.g. +1 (555) 123-4567"
+                      id="name"
+                      value={newUser.name}
+                      onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                      placeholder="e.g. John Smith"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      Required for receiving wildlife notifications
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={newUser.email}
+                      onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                      placeholder="e.g. john.smith@safari.com"
+                    />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="role">Role</Label>
+                    <Select
+                      value={newUser.role}
+                      onValueChange={(value) => handleRoleChange(value, true)}
+                    >
+                      <SelectTrigger id="role">
+                        <SelectValue placeholder="Select a role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {roles.map((role) => (
+                          <SelectItem key={role.id} value={role.id}>
+                            {role.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {roles.find(r => r.id === newUser.role)?.description}
                     </p>
                   </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="status">Status</Label>
+                    <Select
+                      value={newUser.status}
+                      onValueChange={(value) => setNewUser({ ...newUser, status: value })}
+                    >
+                      <SelectTrigger id="status">
+                        <SelectValue placeholder="Select status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="active">Active</SelectItem>
+                        <SelectItem value="inactive">Inactive</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-              )}
-            </TabsContent>
+              </TabsContent>
+              <TabsContent value="permissions" className="space-y-4">
+                <div className="rounded-md border p-4 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Manage Users</h4>
+                      <p className="text-sm text-muted-foreground">Add, edit and remove user accounts</p>
+                    </div>
+                    <Switch
+                      checked={newUser.permissions?.manageUsers}
+                      onCheckedChange={(checked) =>
+                        setNewUser(prev => ({
+                          ...prev,
+                          permissions: { ...prev.permissions, manageUsers: checked }
+                        }))
+                      }
+                    />
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Manage Lodges</h4>
+                      <p className="text-sm text-muted-foreground">Add, edit and remove lodge information</p>
+                    </div>
+                    <Switch
+                      checked={newUser.permissions?.manageLodges}
+                      onCheckedChange={(checked) =>
+                        setNewUser(prev => ({
+                          ...prev,
+                          permissions: { ...prev.permissions, manageLodges: checked }
+                        }))
+                      }
+                    />
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Manage Cameras</h4>
+                      <p className="text-sm text-muted-foreground">Configure and monitor wildlife cameras</p>
+                    </div>
+                    <Switch
+                      checked={newUser.permissions?.manageCameras}
+                      onCheckedChange={(checked) =>
+                        setNewUser(prev => ({
+                          ...prev,
+                          permissions: { ...prev.permissions, manageCameras: checked }
+                        }))
+                      }
+                    />
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Manage Guests</h4>
+                      <p className="text-sm text-muted-foreground">Add and manage guest information</p>
+                    </div>
+                    <Switch
+                      checked={newUser.permissions?.manageGuests}
+                      onCheckedChange={(checked) =>
+                        setNewUser(prev => ({
+                          ...prev,
+                          permissions: { ...prev.permissions, manageGuests: checked }
+                        }))
+                      }
+                    />
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Send Notifications</h4>
+                      <p className="text-sm text-muted-foreground">Send wildlife notifications to guests</p>
+                    </div>
+                    <Switch
+                      checked={newUser.permissions?.sendNotifications}
+                      onCheckedChange={(checked) =>
+                        setNewUser(prev => ({
+                          ...prev,
+                          permissions: { ...prev.permissions, sendNotifications: checked }
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-medium">Receive Notifications</h4>
+                      <p className="text-sm text-muted-foreground">Get wildlife sighting notifications like guests</p>
+                    </div>
+                    <Switch
+                      checked={newUser.permissions?.receiveNotifications}
+                      onCheckedChange={(checked) =>
+                        setNewUser(prev => ({
+                          ...prev,
+                          permissions: { ...prev.permissions, receiveNotifications: checked }
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                
+                {/* Add wildlife notification preferences */}
+                {newUser.permissions?.receiveNotifications && (
+                  <div className="rounded-md border p-4 space-y-4">
+                    <div>
+                      <h4 className="font-medium">Notification Preferences</h4>
+                      <p className="text-sm text-muted-foreground">Select which wildlife sightings to be notified about</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mt-3">
+                      {wildlifeOptions.map((animal) => (
+                        <div key={animal} className="flex items-center space-x-2">
+                          <Switch
+                            id={`animal-${animal}`}
+                            checked={newUser.notificationPreferences.includes(animal)}
+                            onCheckedChange={(checked) => {
+                              if (checked) {
+                                setNewUser(prev => ({
+                                  ...prev,
+                                  notificationPreferences: [...prev.notificationPreferences, animal]
+                                }));
+                              } else {
+                                setNewUser(prev => ({
+                                  ...prev,
+                                  notificationPreferences: prev.notificationPreferences.filter(a => a !== animal)
+                                }));
+                              }
+                            }}
+                          />
+                          <Label htmlFor={`animal-${animal}`}>{animal}</Label>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <Separator />
+                    
+                    <div className="grid gap-2">
+                      <Label htmlFor="phone">WhatsApp/Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={newUser.phone}
+                        onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+                        placeholder="e.g. +1 (555) 123-4567"
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Required for receiving wildlife notifications
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </TabsContent>
+            </div>
           </Tabs>
-          <DialogFooter>
+          <DialogFooter className="sticky bottom-0 pt-2 bg-background border-t mt-4">
             <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
               Cancel
             </Button>
@@ -724,7 +726,7 @@ export function UserSettings() {
 
       {/* Edit User Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit User</DialogTitle>
             <DialogDescription>Update the user's details and permissions.</DialogDescription>
@@ -732,7 +734,7 @@ export function UserSettings() {
           {currentUser && (
             <>
               <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-4">
-                <TabsList className="grid grid-cols-2 mb-4 bg-muted/50 p-1">
+                <TabsList className="grid grid-cols-2 mb-4 bg-muted/50 p-1 sticky top-0 z-10">
                   <TabsTrigger value="details" className="data-[state=active]:bg-background">
                     User Details
                   </TabsTrigger>
@@ -740,225 +742,227 @@ export function UserSettings() {
                     Permissions
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="details" className="space-y-4">
-                  <div className="grid gap-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="edit-name">Full Name</Label>
-                      <Input
-                        id="edit-name"
-                        value={currentUser.name}
-                        onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
-                      />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="edit-email">Email Address</Label>
-                      <Input
-                        id="edit-email"
-                        type="email"
-                        value={currentUser.email}
-                        onChange={(e) => setCurrentUser({ ...currentUser, email: e.target.value })}
-                      />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="edit-role">Role</Label>
-                      <Select
-                        value={currentUser.role}
-                        onValueChange={(value) => handleRoleChange(value)}
-                      >
-                        <SelectTrigger id="edit-role">
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {roles.map((role) => (
-                            <SelectItem key={role.id} value={role.id}>
-                              {role.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {roles.find(r => r.id === currentUser.role)?.description}
-                      </p>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="edit-status">Status</Label>
-                      <Select
-                        value={currentUser.status}
-                        onValueChange={(value) => setCurrentUser({ ...currentUser, status: value })}
-                      >
-                        <SelectTrigger id="edit-status">
-                          <SelectValue placeholder="Select status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="active">Active</SelectItem>
-                          <SelectItem value="inactive">Inactive</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                </TabsContent>
-                <TabsContent value="permissions" className="space-y-4">
-                  <div className="rounded-md border p-4 space-y-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">Manage Users</h4>
-                        <p className="text-sm text-muted-foreground">Add, edit and remove user accounts</p>
-                      </div>
-                      <Switch
-                        checked={currentUser.permissions?.manageUsers}
-                        onCheckedChange={(checked) =>
-                          setCurrentUser(prev => ({
-                            ...prev,
-                            permissions: { ...prev.permissions, manageUsers: checked }
-                          }))
-                        }
-                      />
-                    </div>
-                    <Separator />
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">Manage Lodges</h4>
-                        <p className="text-sm text-muted-foreground">Add, edit and remove lodge information</p>
-                      </div>
-                      <Switch
-                        checked={currentUser.permissions?.manageLodges}
-                        onCheckedChange={(checked) =>
-                          setCurrentUser(prev => ({
-                            ...prev,
-                            permissions: { ...prev.permissions, manageLodges: checked }
-                          }))
-                        }
-                      />
-                    </div>
-                    <Separator />
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">Manage Cameras</h4>
-                        <p className="text-sm text-muted-foreground">Configure and monitor wildlife cameras</p>
-                      </div>
-                      <Switch
-                        checked={currentUser.permissions?.manageCameras}
-                        onCheckedChange={(checked) =>
-                          setCurrentUser(prev => ({
-                            ...prev,
-                            permissions: { ...prev.permissions, manageCameras: checked }
-                          }))
-                        }
-                      />
-                    </div>
-                    <Separator />
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">Manage Guests</h4>
-                        <p className="text-sm text-muted-foreground">Add and manage guest information</p>
-                      </div>
-                      <Switch
-                        checked={currentUser.permissions?.manageGuests}
-                        onCheckedChange={(checked) =>
-                          setCurrentUser(prev => ({
-                            ...prev,
-                            permissions: { ...prev.permissions, manageGuests: checked }
-                          }))
-                        }
-                      />
-                    </div>
-                    <Separator />
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">Send Notifications</h4>
-                        <p className="text-sm text-muted-foreground">Send wildlife notifications to guests</p>
-                      </div>
-                      <Switch
-                        checked={currentUser.permissions?.sendNotifications}
-                        onCheckedChange={(checked) =>
-                          setCurrentUser(prev => ({
-                            ...prev,
-                            permissions: { ...prev.permissions, sendNotifications: checked }
-                          }))
-                        }
-                      />
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium">Receive Notifications</h4>
-                        <p className="text-sm text-muted-foreground">Get wildlife sighting notifications like guests</p>
-                      </div>
-                      <Switch
-                        checked={currentUser.permissions?.receiveNotifications}
-                        onCheckedChange={(checked) =>
-                          setCurrentUser(prev => {
-                            if (prev === null) return null;
-                            return {
-                              ...prev,
-                              permissions: { ...prev.permissions, receiveNotifications: checked }
-                            };
-                          })
-                        }
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Add wildlife notification preferences */}
-                  {currentUser.permissions?.receiveNotifications && (
-                    <div className="rounded-md border p-4 space-y-4">
-                      <div>
-                        <h4 className="font-medium">Notification Preferences</h4>
-                        <p className="text-sm text-muted-foreground">Select which wildlife sightings to be notified about</p>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 mt-3">
-                        {wildlifeOptions.map((animal) => (
-                          <div key={animal} className="flex items-center space-x-2">
-                            <Switch
-                              id={`edit-animal-${animal}`}
-                              checked={currentUser.notificationPreferences?.includes(animal) || false}
-                              onCheckedChange={(checked) => {
-                                if (checked) {
-                                  setCurrentUser(prev => {
-                                    if (prev === null) return null;
-                                    return {
-                                      ...prev,
-                                      notificationPreferences: [...(prev.notificationPreferences || []), animal]
-                                    };
-                                  });
-                                } else {
-                                  setCurrentUser(prev => {
-                                    if (prev === null) return null;
-                                    return {
-                                      ...prev,
-                                      notificationPreferences: (prev.notificationPreferences || []).filter(a => a !== animal)
-                                    };
-                                  });
-                                }
-                              }}
-                            />
-                            <Label htmlFor={`edit-animal-${animal}`}>{animal}</Label>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      <Separator />
-                      
+                <div className="overflow-y-auto">
+                  <TabsContent value="details" className="space-y-4">
+                    <div className="grid gap-4">
                       <div className="grid gap-2">
-                        <Label htmlFor="edit-phone">WhatsApp/Phone Number</Label>
+                        <Label htmlFor="edit-name">Full Name</Label>
                         <Input
-                          id="edit-phone"
-                          type="tel"
-                          value={currentUser.phone || ""}
-                          onChange={(e) => setCurrentUser(prev => {
-                            if (prev === null) return null;
-                            return { ...prev, phone: e.target.value };
-                          })}
-                          placeholder="e.g. +1 (555) 123-4567"
+                          id="edit-name"
+                          value={currentUser.name}
+                          onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
                         />
-                        <p className="text-xs text-muted-foreground">
-                          Required for receiving wildlife notifications
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="edit-email">Email Address</Label>
+                        <Input
+                          id="edit-email"
+                          type="email"
+                          value={currentUser.email}
+                          onChange={(e) => setCurrentUser({ ...currentUser, email: e.target.value })}
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="edit-role">Role</Label>
+                        <Select
+                          value={currentUser.role}
+                          onValueChange={(value) => handleRoleChange(value)}
+                        >
+                          <SelectTrigger id="edit-role">
+                            <SelectValue placeholder="Select a role" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {roles.map((role) => (
+                              <SelectItem key={role.id} value={role.id}>
+                                {role.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {roles.find(r => r.id === currentUser.role)?.description}
                         </p>
                       </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="edit-status">Status</Label>
+                        <Select
+                          value={currentUser.status}
+                          onValueChange={(value) => setCurrentUser({ ...currentUser, status: value })}
+                        >
+                          <SelectTrigger id="edit-status">
+                            <SelectValue placeholder="Select status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="active">Active</SelectItem>
+                            <SelectItem value="inactive">Inactive</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
-                  )}
-                </TabsContent>
+                  </TabsContent>
+                  <TabsContent value="permissions" className="space-y-4">
+                    <div className="rounded-md border p-4 space-y-4">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-medium">Manage Users</h4>
+                          <p className="text-sm text-muted-foreground">Add, edit and remove user accounts</p>
+                        </div>
+                        <Switch
+                          checked={currentUser.permissions?.manageUsers}
+                          onCheckedChange={(checked) =>
+                            setCurrentUser(prev => ({
+                              ...prev,
+                              permissions: { ...prev.permissions, manageUsers: checked }
+                            }))
+                          }
+                        />
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-medium">Manage Lodges</h4>
+                          <p className="text-sm text-muted-foreground">Add, edit and remove lodge information</p>
+                        </div>
+                        <Switch
+                          checked={currentUser.permissions?.manageLodges}
+                          onCheckedChange={(checked) =>
+                            setCurrentUser(prev => ({
+                              ...prev,
+                              permissions: { ...prev.permissions, manageLodges: checked }
+                            }))
+                          }
+                        />
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-medium">Manage Cameras</h4>
+                          <p className="text-sm text-muted-foreground">Configure and monitor wildlife cameras</p>
+                        </div>
+                        <Switch
+                          checked={currentUser.permissions?.manageCameras}
+                          onCheckedChange={(checked) =>
+                            setCurrentUser(prev => ({
+                              ...prev,
+                              permissions: { ...prev.permissions, manageCameras: checked }
+                            }))
+                          }
+                        />
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-medium">Manage Guests</h4>
+                          <p className="text-sm text-muted-foreground">Add and manage guest information</p>
+                        </div>
+                        <Switch
+                          checked={currentUser.permissions?.manageGuests}
+                          onCheckedChange={(checked) =>
+                            setCurrentUser(prev => ({
+                              ...prev,
+                              permissions: { ...prev.permissions, manageGuests: checked }
+                            }))
+                          }
+                        />
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-medium">Send Notifications</h4>
+                          <p className="text-sm text-muted-foreground">Send wildlife notifications to guests</p>
+                        </div>
+                        <Switch
+                          checked={currentUser.permissions?.sendNotifications}
+                          onCheckedChange={(checked) =>
+                            setCurrentUser(prev => ({
+                              ...prev,
+                              permissions: { ...prev.permissions, sendNotifications: checked }
+                            }))
+                          }
+                        />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-medium">Receive Notifications</h4>
+                          <p className="text-sm text-muted-foreground">Get wildlife sighting notifications like guests</p>
+                        </div>
+                        <Switch
+                          checked={currentUser.permissions?.receiveNotifications}
+                          onCheckedChange={(checked) =>
+                            setCurrentUser(prev => {
+                              if (prev === null) return null;
+                              return {
+                                ...prev,
+                                permissions: { ...prev.permissions, receiveNotifications: checked }
+                              };
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Add wildlife notification preferences */}
+                    {currentUser.permissions?.receiveNotifications && (
+                      <div className="rounded-md border p-4 space-y-4">
+                        <div>
+                          <h4 className="font-medium">Notification Preferences</h4>
+                          <p className="text-sm text-muted-foreground">Select which wildlife sightings to be notified about</p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 mt-3">
+                          {wildlifeOptions.map((animal) => (
+                            <div key={animal} className="flex items-center space-x-2">
+                              <Switch
+                                id={`edit-animal-${animal}`}
+                                checked={currentUser.notificationPreferences?.includes(animal) || false}
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    setCurrentUser(prev => {
+                                      if (prev === null) return null;
+                                      return {
+                                        ...prev,
+                                        notificationPreferences: [...(prev.notificationPreferences || []), animal]
+                                      };
+                                    });
+                                  } else {
+                                    setCurrentUser(prev => {
+                                      if (prev === null) return null;
+                                      return {
+                                        ...prev,
+                                        notificationPreferences: (prev.notificationPreferences || []).filter(a => a !== animal)
+                                      };
+                                    });
+                                  }
+                                }}
+                              />
+                              <Label htmlFor={`edit-animal-${animal}`}>{animal}</Label>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <Separator />
+                        
+                        <div className="grid gap-2">
+                          <Label htmlFor="edit-phone">WhatsApp/Phone Number</Label>
+                          <Input
+                            id="edit-phone"
+                            type="tel"
+                            value={currentUser.phone || ""}
+                            onChange={(e) => setCurrentUser(prev => {
+                              if (prev === null) return null;
+                              return { ...prev, phone: e.target.value };
+                            })}
+                            placeholder="e.g. +1 (555) 123-4567"
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Required for receiving wildlife notifications
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </TabsContent>
+                </div>
               </Tabs>
-              <DialogFooter>
+              <DialogFooter className="sticky bottom-0 pt-2 bg-background border-t mt-4">
                 <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
                   Cancel
                 </Button>
@@ -976,7 +980,7 @@ export function UserSettings() {
 
       {/* Delete User Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>Delete User</DialogTitle>
             <DialogDescription>
