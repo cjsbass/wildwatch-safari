@@ -36,6 +36,7 @@ interface UserPermissions {
   manageCameras: boolean;
   manageGuests: boolean;
   sendNotifications: boolean;
+  receiveNotifications: boolean;
 }
 
 interface User {
@@ -46,6 +47,8 @@ interface User {
   status: string;
   lastLogin: string | null;
   permissions: UserPermissions;
+  notificationPreferences?: string[];
+  phone?: string;
 }
 
 interface NewUser {
@@ -54,6 +57,8 @@ interface NewUser {
   role: string;
   status: string;
   permissions: UserPermissions;
+  notificationPreferences: string[];
+  phone: string;
 }
 
 // Mock data for users
@@ -71,7 +76,10 @@ const initialUsers: User[] = [
       manageCameras: true,
       manageGuests: true,
       sendNotifications: true,
-    }
+      receiveNotifications: true
+    },
+    notificationPreferences: ["Elephant", "Lion", "Rhino"],
+    phone: "+1 (555) 111-2222"
   },
   {
     id: "2",
@@ -86,7 +94,10 @@ const initialUsers: User[] = [
       manageCameras: true,
       manageGuests: true,
       sendNotifications: true,
-    }
+      receiveNotifications: true
+    },
+    notificationPreferences: ["Elephant", "Lion"],
+    phone: "+1 (555) 333-4444"
   },
   {
     id: "3",
@@ -101,7 +112,10 @@ const initialUsers: User[] = [
       manageCameras: true,
       manageGuests: false,
       sendNotifications: true,
-    }
+      receiveNotifications: true
+    },
+    notificationPreferences: ["Elephant"],
+    phone: "+1 (555) 555-6666"
   },
   {
     id: "4",
@@ -116,7 +130,10 @@ const initialUsers: User[] = [
       manageCameras: false,
       manageGuests: true,
       sendNotifications: true,
-    }
+      receiveNotifications: true
+    },
+    notificationPreferences: ["Elephant"],
+    phone: "+1 (555) 777-8888"
   },
 ];
 
@@ -132,6 +149,7 @@ const roles = [
       manageCameras: true,
       manageGuests: true,
       sendNotifications: true,
+      receiveNotifications: true
     }
   },
   {
@@ -144,6 +162,7 @@ const roles = [
       manageCameras: true,
       manageGuests: true,
       sendNotifications: true,
+      receiveNotifications: true
     }
   },
   {
@@ -156,6 +175,7 @@ const roles = [
       manageCameras: true,
       manageGuests: false,
       sendNotifications: true,
+      receiveNotifications: true
     }
   },
   {
@@ -168,6 +188,7 @@ const roles = [
       manageCameras: false,
       manageGuests: true,
       sendNotifications: true,
+      receiveNotifications: true
     }
   },
   {
@@ -180,8 +201,21 @@ const roles = [
       manageCameras: false,
       manageGuests: false,
       sendNotifications: false,
+      receiveNotifications: false
     }
   }
+];
+
+// Add wildlife notification options
+const wildlifeOptions = [
+  "Elephant",
+  "Lion",
+  "Rhino",
+  "Giraffe",
+  "Zebra",
+  "Buffalo",
+  "Leopard",
+  "Cheetah"
 ];
 
 export function UserSettings() {
@@ -198,7 +232,8 @@ export function UserSettings() {
     manageLodges: false,
     manageCameras: false,
     manageGuests: true,
-    sendNotifications: true
+    sendNotifications: true,
+    receiveNotifications: true
   };
   
   const [newUser, setNewUser] = useState<NewUser>({
@@ -206,7 +241,9 @@ export function UserSettings() {
     email: "",
     role: "staff",
     status: "active",
-    permissions: { ...defaultPermissions }
+    permissions: { ...defaultPermissions },
+    notificationPreferences: [],
+    phone: ""
   });
   
   const { toast } = useToast();
@@ -219,7 +256,9 @@ export function UserSettings() {
       role: newUser.role,
       status: newUser.status,
       lastLogin: null,
-      permissions: { ...newUser.permissions }
+      permissions: { ...newUser.permissions },
+      notificationPreferences: newUser.notificationPreferences,
+      phone: newUser.phone
     };
     setUsers([...users, user]);
     setNewUser({
@@ -227,7 +266,9 @@ export function UserSettings() {
       email: "",
       role: "staff",
       status: "active",
-      permissions: { ...defaultPermissions }
+      permissions: { ...defaultPermissions },
+      notificationPreferences: [],
+      phone: ""
     });
     setIsAddDialogOpen(false);
     toast({
@@ -272,7 +313,8 @@ export function UserSettings() {
           manageLodges: !!selectedRole.defaultPermissions.manageLodges,
           manageCameras: !!selectedRole.defaultPermissions.manageCameras,
           manageGuests: !!selectedRole.defaultPermissions.manageGuests,
-          sendNotifications: !!selectedRole.defaultPermissions.sendNotifications
+          sendNotifications: !!selectedRole.defaultPermissions.sendNotifications,
+          receiveNotifications: !!selectedRole.defaultPermissions.receiveNotifications
         }
       }));
     } else if (currentUser) {
@@ -284,7 +326,8 @@ export function UserSettings() {
           manageLodges: !!selectedRole.defaultPermissions.manageLodges,
           manageCameras: !!selectedRole.defaultPermissions.manageCameras,
           manageGuests: !!selectedRole.defaultPermissions.manageGuests,
-          sendNotifications: !!selectedRole.defaultPermissions.sendNotifications
+          sendNotifications: !!selectedRole.defaultPermissions.sendNotifications,
+          receiveNotifications: !!selectedRole.defaultPermissions.receiveNotifications
         }
       }));
     }
@@ -492,7 +535,72 @@ export function UserSettings() {
                     }
                   />
                 </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h4 className="font-medium">Receive Notifications</h4>
+                    <p className="text-sm text-muted-foreground">Get wildlife sighting notifications like guests</p>
+                  </div>
+                  <Switch
+                    checked={newUser.permissions?.receiveNotifications}
+                    onCheckedChange={(checked) =>
+                      setNewUser(prev => ({
+                        ...prev,
+                        permissions: { ...prev.permissions, receiveNotifications: checked }
+                      }))
+                    }
+                  />
+                </div>
               </div>
+              
+              {/* Add wildlife notification preferences */}
+              {newUser.permissions?.receiveNotifications && (
+                <div className="rounded-md border p-4 space-y-4">
+                  <div>
+                    <h4 className="font-medium">Notification Preferences</h4>
+                    <p className="text-sm text-muted-foreground">Select which wildlife sightings to be notified about</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 mt-3">
+                    {wildlifeOptions.map((animal) => (
+                      <div key={animal} className="flex items-center space-x-2">
+                        <Switch
+                          id={`animal-${animal}`}
+                          checked={newUser.notificationPreferences.includes(animal)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setNewUser(prev => ({
+                                ...prev,
+                                notificationPreferences: [...prev.notificationPreferences, animal]
+                              }));
+                            } else {
+                              setNewUser(prev => ({
+                                ...prev,
+                                notificationPreferences: prev.notificationPreferences.filter(a => a !== animal)
+                              }));
+                            }
+                          }}
+                        />
+                        <Label htmlFor={`animal-${animal}`}>{animal}</Label>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Separator />
+                  
+                  <div className="grid gap-2">
+                    <Label htmlFor="phone">WhatsApp/Phone Number</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={newUser.phone}
+                      onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+                      placeholder="e.g. +1 (555) 123-4567"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Required for receiving wildlife notifications
+                    </p>
+                  </div>
+                </div>
+              )}
             </TabsContent>
           </Tabs>
           <DialogFooter>
@@ -584,11 +692,31 @@ export function UserSettings() {
                       <Badge variant="secondary" className="text-xs">Guests</Badge>
                     )}
                     {user.permissions.sendNotifications && (
-                      <Badge variant="secondary" className="text-xs">Notifications</Badge>
+                      <Badge variant="secondary" className="text-xs">Send</Badge>
+                    )}
+                    {user.permissions.receiveNotifications && (
+                      <Badge variant="secondary" className="text-xs bg-green-100 text-green-800">Receive</Badge>
                     )}
                   </div>
                 </div>
               </div>
+
+              {user.permissions.receiveNotifications && (
+                <div className="mt-2">
+                  <p className="text-muted-foreground">Wildlife Interests:</p>
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {user.notificationPreferences && user.notificationPreferences.length > 0 ? (
+                      user.notificationPreferences.map(pref => (
+                        <Badge key={pref} variant="outline" className="text-xs bg-amber-50 text-amber-800">
+                          {pref}
+                        </Badge>
+                      ))
+                    ) : (
+                      <span className="text-muted-foreground text-sm">None</span>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </Card>
         ))}
@@ -750,7 +878,84 @@ export function UserSettings() {
                         }
                       />
                     </div>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h4 className="font-medium">Receive Notifications</h4>
+                        <p className="text-sm text-muted-foreground">Get wildlife sighting notifications like guests</p>
+                      </div>
+                      <Switch
+                        checked={currentUser.permissions?.receiveNotifications}
+                        onCheckedChange={(checked) =>
+                          setCurrentUser(prev => {
+                            if (prev === null) return null;
+                            return {
+                              ...prev,
+                              permissions: { ...prev.permissions, receiveNotifications: checked }
+                            };
+                          })
+                        }
+                      />
+                    </div>
                   </div>
+                  
+                  {/* Add wildlife notification preferences */}
+                  {currentUser.permissions?.receiveNotifications && (
+                    <div className="rounded-md border p-4 space-y-4">
+                      <div>
+                        <h4 className="font-medium">Notification Preferences</h4>
+                        <p className="text-sm text-muted-foreground">Select which wildlife sightings to be notified about</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 mt-3">
+                        {wildlifeOptions.map((animal) => (
+                          <div key={animal} className="flex items-center space-x-2">
+                            <Switch
+                              id={`edit-animal-${animal}`}
+                              checked={currentUser.notificationPreferences?.includes(animal) || false}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  setCurrentUser(prev => {
+                                    if (prev === null) return null;
+                                    return {
+                                      ...prev,
+                                      notificationPreferences: [...(prev.notificationPreferences || []), animal]
+                                    };
+                                  });
+                                } else {
+                                  setCurrentUser(prev => {
+                                    if (prev === null) return null;
+                                    return {
+                                      ...prev,
+                                      notificationPreferences: (prev.notificationPreferences || []).filter(a => a !== animal)
+                                    };
+                                  });
+                                }
+                              }}
+                            />
+                            <Label htmlFor={`edit-animal-${animal}`}>{animal}</Label>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <Separator />
+                      
+                      <div className="grid gap-2">
+                        <Label htmlFor="edit-phone">WhatsApp/Phone Number</Label>
+                        <Input
+                          id="edit-phone"
+                          type="tel"
+                          value={currentUser.phone || ""}
+                          onChange={(e) => setCurrentUser(prev => {
+                            if (prev === null) return null;
+                            return { ...prev, phone: e.target.value };
+                          })}
+                          placeholder="e.g. +1 (555) 123-4567"
+                        />
+                        <p className="text-xs text-muted-foreground">
+                          Required for receiving wildlife notifications
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </TabsContent>
               </Tabs>
               <DialogFooter>
